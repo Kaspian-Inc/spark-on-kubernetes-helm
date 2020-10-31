@@ -7,11 +7,11 @@ livy:
       nginx.ingress.kubernetes.io/rewrite-target: /$1
     path: /livy/?(.*)
     hosts:
-    - my-cluster.example.com
+    - k8s.kaspian.io
     tls:
     - secretName: spark-cluster-tls
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
   persistence:
     enabled: true
   env:
@@ -19,7 +19,7 @@ livy:
     # Configure Ingresses for Spark UIs
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_CREATE: {value: "true"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_PROTOCOL: {value: "https"}
-    LIVY_LIVY_SERVER_KUBERNETES_INGRESS_HOST: {value: "my-cluster.example.com"}
+    LIVY_LIVY_SERVER_KUBERNETES_INGRESS_HOST: {value: "k8s.kaspian.io"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_TLS_SECRET1NAME: {value: "spark-cluster-tls"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_ADDITIONAL1ANNOTATIONS: {value: "kubernetes.io/tls-acme=true"}
 
@@ -34,16 +34,16 @@ jupyterhub:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
     hosts:
-    - my-cluster.example.com
+    - k8s.kaspian.io
     pathSuffix: ''
     tls:
     - secretName: spark-cluster-tls
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
   hub:
     # Set up in addition to ingress
     baseUrl: /jupyterhub
-    publicURL: "https://my-cluster.example.com"
+    publicURL: "https://k8s.kaspian.io"
     # $> openssl rand -hex 32
     cookieSecret: 41b85e5f50222b1542cc3b38a51f4d744864acca5e94eeb78c6e8c19d89eb433
   proxy:

@@ -1,26 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ default (include "livy.fullname" .) .Values.service.name }}
+  name: {{ include "livy.fullname" . }}-headless
   labels:
     app.kubernetes.io/name: {{ include "livy.name" . }}
     helm.sh/chart: {{ include "livy.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  # type: {{ .Values.service.type }}
-  # ports:
-  # - port: {{ .Values.service.port }}
-  #   targetPort: http
-  #   protocol: TCP
-  #   name: http
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 8998
-      targetPort: 8998
-      nodePort: 30036
-
+  type: ClusterIP
+  clusterIP: None
   selector:
     app.kubernetes.io/name: {{ include "livy.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
