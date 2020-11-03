@@ -49,10 +49,10 @@ defaultCertificate:
   issuer: selfsigning-issuer
   issuerKind: ClusterIssuer
   secretName: ingress-default-tls
-  commonName: '*.my-cluster.example.com'
+  commonName: '*.k8s.kaspian.io'
   domains:
-  - '*.my-cluster.example.com'
-  - my-cluster.example.com
+  - '*.k8s.kaspian.io'
+  - k8s.kaspian.io
 
 cert-manager:
   enabled: true

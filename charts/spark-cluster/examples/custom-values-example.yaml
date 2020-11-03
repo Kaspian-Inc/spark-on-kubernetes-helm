@@ -14,11 +14,11 @@ livy:
       # nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
     path: /livy/?(.*)
     hosts:
-    - my-cluster.example.com
+    - k8s.kaspian.io
     tls:
     - secretName: spark-cluster-tls
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
 
   persistence:
     enabled: true
@@ -29,16 +29,16 @@ livy:
     # Configure Ingresses for Spark UIs
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_CREATE: {value: "true"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_PROTOCOL: {value: "https"}
-    LIVY_LIVY_SERVER_KUBERNETES_INGRESS_HOST: {value: "my-cluster.example.com"}
+    LIVY_LIVY_SERVER_KUBERNETES_INGRESS_HOST: {value: "k8s.kaspian.io"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_TLS_SECRET1NAME: {value: "spark-cluster-tls"}
     LIVY_LIVY_SERVER_KUBERNETES_INGRESS_ADDITIONAL1ANNOTATIONS: {value: "kubernetes.io/tls-acme=true;nginx.ingress.kubernetes.io/auth-url=https://$host/oauth2/auth;nginx.ingress.kubernetes.io/auth-signin=https://$host/oauth2/start?rd=$escaped_request_uri"}
     # Configure History Server
     LIVY_SPARK_EVENT1LOG_ENABLED: {value: "false"}
     LIVY_SPARK_EVENT1LOG_DIR: {value: "file:///tmp/history-server"}
-    LIVY_LIVY_UI_HISTORY0SERVER0URL: {value: "https://my-cluster.example.com/history-server"}
+    LIVY_LIVY_UI_HISTORY0SERVER0URL: {value: "https://k8s.kaspian.io/history-server"}
     # Configure Grafana Loki integration
     LIVY_LIVY_SERVER_KUBERNETES_GRAFANA_LOKI_ENABLED: {value: "true"}
-    LIVY_LIVY_SERVER_KUBERNETES_GRAFANA_URL: {value: "https://my-cluster.example.com/grafana"}
+    LIVY_LIVY_SERVER_KUBERNETES_GRAFANA_URL: {value: "https://k8s.kaspian.io/grafana"}
     # Configure default nodepool for Spark Pods
     LIVY_SPARK_KUBERNETES_NODE_SELECTOR_AGENTPOOL: {value: "sparkpool"}
 
@@ -88,11 +88,11 @@ historyserver:
       # nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
     path: /history-server/?(.*)
     hosts:
-    - my-cluster.example.com
+    - k8s.kaspian.io
     tls:
     - secretName: spark-cluster-tls
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
   pvc:
     enablePVC: false
   nfs:
@@ -116,18 +116,18 @@ jupyterhub:
       # nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
       # nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
     hosts:
-    - my-cluster.example.com
+    - k8s.kaspian.io
     pathSuffix: ''
     tls:
     - secretName: spark-cluster-tls
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
 
   hub:
 
     # Set up in addition to ingress
     baseUrl: /jupyterhub
-    publicURL: "https://my-cluster.example.com"
+    publicURL: "https://k8s.kaspian.io"
     activeServerLimit: 10
 
     # For Azure AD OAuthenticator (https://github.com/jupyterhub/oauthenticator/issues/218)
@@ -148,7 +148,7 @@ jupyterhub:
     custom:
       className: oauthenticator.azuread.AzureAdOAuthenticator
       config:
-        oauth_callback_url: "https://my-cluster.example.com/jupyterhub/hub/oauth_callback"
+        oauth_callback_url: "https://k8s.kaspian.io/jupyterhub/hub/oauth_callback"
         client_id: "<WEB_APP_CLIENT_ID>"
         client_secret: "<WEB_APP_CLIENT_SECRET>"
         # https://github.com/jupyterhub/oauthenticator/issues/218
