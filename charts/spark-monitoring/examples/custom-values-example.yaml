@@ -10,13 +10,13 @@ prometheusoperator:
       paths:
       - /prometheus/?(.*)
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
       tls:
       - secretName: cluster-tls
         hosts:
-        - my-cluster.example.com
+        - k8s.kaspian.io
     prometheusSpec:
-      externalUrl: "https://my-cluster.example.com/prometheus/"
+      externalUrl: "https://k8s.kaspian.io/prometheus/"
 
   grafana:
     ingress:
@@ -27,11 +27,11 @@ prometheusoperator:
         nginx.ingress.kubernetes.io/rewrite-target: /$1
       path: /grafana/?(.*)
       hosts:
-      - my-cluster.example.com
+      - k8s.kaspian.io
       tls:
       - secretName: cluster-tls
         hosts:
-        - my-cluster.example.com
+        - k8s.kaspian.io
     env:
-      GF_SERVER_DOMAIN: "my-cluster.example.com"
-      GF_SERVER_ROOT_URL: "https://my-cluster.example.com/grafana/"
+      GF_SERVER_DOMAIN: "k8s.kaspian.io"
+      GF_SERVER_ROOT_URL: "https://k8s.kaspian.io/grafana/"
