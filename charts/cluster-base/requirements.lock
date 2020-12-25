@@ -7,9 +7,9 @@ dependencies:
   version: v0.15.2
 - name: oauth2-proxy
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 3.2.2
+  version: 3.2.*
 - name: cluster-autoscaler
   repository: https://kubernetes-charts.storage.googleapis.com
-  version: 7.3.4
-digest: sha256:786f9de4ad4af278118bfd6ce3eb6793ca25297aa522a838b6dcf68b5fde9e94
-generated: "2020-08-23T22:28:01.71524+03:00"
+  version: 7.3.*
+digest: sha256:61ba31edb7aa7d0414bf23366834a299eb1507e4985d0c62549ec1b52ca83b5d
+generated: "2020-10-17T10:36:30.709982-07:00"
