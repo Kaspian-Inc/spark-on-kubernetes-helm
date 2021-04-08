@@ -13,7 +13,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 rbac:
-  create: false
+  create: true
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -31,12 +31,14 @@ sparkServiceAccount:
 
 service:
   type: NodePort
-  port: 80
+  port: 8998
+  nodePort: 30036
   # If not set, a name is generated using the fullname template
   name:
 
 ingress:
-  enabled: false
+  enabled: true
+  inbound_cidrs: "0.0.0.0/0"
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -52,11 +54,13 @@ ingress:
     #
     # Rewrite target URI without basePath part: https://kubernetes.github.io/ingress-nginx/examples/rewrite/#rewrite
     # nginx.ingress.kubernetes.io/rewrite-target: /$1
-  path: /
+  path: /*
   # path: /livy/?(.*) # Capture target URI part to remove basePath on `rewrite-target` above
-  hosts:
-  - livy.local # Set to endpoint hostname to accept requests to
-  tls: [] # Configure tls, Certmanager will do the work with Certs for you if properly configured
+  host: "*.elb.amazonaws.com"
+  # - livy.local # Set to endpoint hostname to accept requests to
+  tls: # Configure tls, Certmanager will do the work with Certs for you if properly configured
+    - hosts:
+      - "*.elb.amazonaws.com"
   # - secretName: livy-tls
   #   hosts:
   #   - livy.local
